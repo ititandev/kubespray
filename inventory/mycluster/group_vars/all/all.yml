@@ -11,10 +11,10 @@ bin_dir: /usr/local/bin
 
 
 ## External LB example config
-## apiserver_loadbalancer_domain_name: "elb.some.domain"
-# loadbalancer_apiserver:
-#   address: 1.2.3.4
-#   port: 1234
+apiserver_loadbalancer_domain_name: "k8s.ldmanhit.com"
+loadbalancer_apiserver:
+  address: k8s.ldmanhit.com
+  port: 6443
 
 ## Internal loadbalancers for apiservers
 # loadbalancer_apiserver_localhost: true
@@ -137,3 +137,18 @@ unsafe_show_logs: false
 
 ## If enabled it will allow kubespray to attempt setup even if the distribution is not supported. For unsupported distributions this can lead to unexpected failures in some cases.
 allow_unsupported_distribution_setup: false
+
+
+kubelet_config_extra_args:
+  evictionHard:
+    memory.available: "100Mi"
+    nodefs.available: "5%"
+    nodefs.inodesFree: "3%"
+    imagefs.available: "5%"
+  evictionSoft:
+    imagefs.available: "15%"
+  evictionSoftGracePeriod:
+    imagefs.available: "5m"
+  evictionMinimumReclaim:
+    nodefs.available: "5Gi"
+    imagefs.available: "10Gi"
